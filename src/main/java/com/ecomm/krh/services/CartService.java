@@ -1,6 +1,7 @@
 package com.ecomm.krh.services;
 
 import com.ecomm.krh.model.CartItem;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -21,7 +22,7 @@ public class CartService {
     public CartService(RedisTemplate<String, String> redisTemplate) {
         this.hashOps = redisTemplate.opsForHash();
     }
-
+    @CircuitBreaker(name = "myCircuitBreaker", fallbackMethod = "fallbackMethod")
     public void addToCart(String userId, CartItem item) {
         String key = CART_PREFIX + userId;
         hashOps.increment(key, item.getProductId(), item.getQuantity());
@@ -38,6 +39,10 @@ public class CartService {
     public void clearCart(String userId) {
         String key = CART_PREFIX + userId;
         hashOps.getOperations().delete(key);
+    }
+
+    public String fallbackMethod(Throwable t) {
+        return "Fallback response";
     }
 }
 
