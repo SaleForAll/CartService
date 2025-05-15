@@ -16,20 +16,22 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @PostMapping("addCart/{userId}")
+
+    @PostMapping("/addCart/{userId}")
     public String addToCart(@PathVariable String userId, @RequestBody CartItem item) {
         logger.info("add to cart ");
         cartService.addToCart(userId, item);
         return "Item added to cart 888";
     }
 
-    @GetMapping("getCart/{userId}")
+    @GetMapping("/getCart/{userId}")
     public List<CartItem> getCart(@PathVariable String userId) {
         logger.info("get cart call ");
         return cartService.getCart(userId);
     }
 
-    @DeleteMapping("clearCart/{userId}")
+
+    @DeleteMapping("/clearCart/{userId}")
     public String clearCart(@PathVariable String userId) {
         logger.info("clear cart call ");
         cartService.clearCart(userId);
