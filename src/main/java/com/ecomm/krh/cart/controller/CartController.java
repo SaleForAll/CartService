@@ -20,7 +20,7 @@ public class CartController {
     public String addToCart(@PathVariable String userId, @RequestBody CartItem item) {
         logger.info("add to cart ");
         cartService.addToCart(userId, item);
-        return "Item added to cart";
+        return "Item added to cart 888";
     }
 
     @GetMapping("getCart/{userId}")
