@@ -6,6 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -36,6 +38,11 @@ public class CartController {
         logger.info("clear cart call ");
         cartService.clearCart(userId);
         return "Cart cleared";
+    }
+
+    @GetMapping("/products/{id}")
+    public Mono<String> getProduct(@PathVariable int id) {
+        return cartService.getProduct(id);
     }
 }
 
