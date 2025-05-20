@@ -1,4 +1,4 @@
-package com.ecomm.krh.cartmain;
+package com.ecomm.krh;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
